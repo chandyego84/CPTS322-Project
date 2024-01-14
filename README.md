@@ -1,6 +1,7 @@
 # CPTS322-Project
 
-## (Project Title/Topic Here)
+## (Project Title-TeamName Here)
+
 Project Description: ---
 
 | Member Name | WSU ID | Email |
