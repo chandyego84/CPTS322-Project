@@ -17,7 +17,7 @@ library and look into the details about each book selected.
     - fix any merge conflicts
 4. `git push`
 5. Create a Pull Request
-    - Will be reviewed and merged by Chandler!
+    - Will not be merged until reviewed by Chandler!
 
 ### Team Members
 | Member Name | WSU ID | Email | Contact Person |
