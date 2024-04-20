@@ -1,0 +1,30 @@
+{
+  "name": "cpts322-project",
+  "version": "1.0.0",
+  "description": "A librarian assistant that helps a librarian manage common\r library-management tasks, including user registration, book search, placing hold on a\r book, checking out a book, and returning a book, etc. You may need to use a database\r of book information to support this application. Users can also browse the books in the\r library and look into the details about each book selected.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node app.js",
+    "app": "nodemon app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/chandyego84/CPTS322-Project.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/chandyego84/CPTS322-Project/issues"
+  },
+  "homepage": "https://github.com/chandyego84/CPTS322-Project#readme",
+  "keywords": [],
+  "dependencies": {
+    "body-parser": "^1.20.2",
+    "express": "^4.19.2",
+    "mongoose": "^8.3.2"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.0"
+  }
+}
