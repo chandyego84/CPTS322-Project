@@ -9,7 +9,7 @@ book, checking out a book, and returning a book, etc. You may need to use a data
 of book information to support this application. Users can also browse the books in the
 library and look into the details about each book selected.
 
-### Note to developers
+### Note to developers/the group
 1. Always work on a separate branch from main: e.g., on branch 'lastName'
 2. Make small commits to changes you make
 3. BEFORE pushing your branch onto main:
