@@ -28,7 +28,7 @@
 /* BookList Styles */
 .list {
   display: grid;
-  margin: 20px 0 50px 0;
+  margin: 20px auto 50px auto;
   grid-template-columns: repeat(4, 1fr);
   grid-auto-rows: 1fr;
   grid-gap: 2em;
@@ -60,4 +60,13 @@
   color: #6c757d;
   font-size: 1em;
   padding: 10px 0 10px 0;
+}
+
+.CreateBook, .ShowBookDetails, .UpdateBookInfo, .ShowBookList {
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
