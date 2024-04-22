@@ -1,5 +1,7 @@
+const axios = require('axios');
 const express = require('express');
 const router = express.Router();
+
 
 // load book model
 const Book = require('../../models/Book');
@@ -38,11 +40,54 @@ router.get('/:id', (req, res) => {
 * @desc Add/save a book 
 * @access public
 */
-router.post('/', (req, res) => {
-    Book.create(req.body)
-        .then(book => res.json({  msg: "Book added sucessfully" }))
-        .catch(err => res.status(400).json({ noBookFound: "Unable to add this book" }));
-})
+router.post('/', async (req, res) => {
+    try {
+        let bookData;
+
+        if (req.body.isbn) {
+            // If ISBN is provided, search by ISBN
+            const googleBooksAPIUrl = `https://www.googleapis.com/books/v1/volumes?q=isbn:${req.body.isbn}&key=AIzaSyAABMNzcrcDrbDY1hQ5osOF7w1GmM4j22o`;
+            const response = await axios.get(googleBooksAPIUrl);
+
+            // Check if the response is valid and contains items
+            if (response.data && response.data.items && response.data.items.length > 0) {
+                bookData = response.data.items[0].volumeInfo;
+            } else {
+                throw new Error('Book not found or invalid response from Google Books API');
+            }
+        } else {
+            // If ISBN is not provided, search by title and author
+            const googleBooksAPIUrl = `https://www.googleapis.com/books/v1/volumes?q=intitle:${encodeURIComponent(
+                req.body.title
+            )}+inauthor:${encodeURIComponent(req.body.author)}&key=AIzaSyAABMNzcrcDrbDY1hQ5osOF7w1GmM4j22o`;
+            const response = await axios.get(googleBooksAPIUrl);
+
+            // Check if the response is valid and contains items
+            if (response.data && response.data.items && response.data.items.length > 0) {
+                bookData = response.data.items[0].volumeInfo;
+            } else {
+                throw new Error('Book not found or invalid response from Google Books API');
+            }
+        }
+
+        // Create a new Book instance with fetched information
+        const newBook = new Book({
+            title: bookData.title,
+            isbn: bookData.industryIdentifiers ? bookData.industryIdentifiers[0].identifier : '',
+            author: bookData.authors ? bookData.authors.join(', ') : '',
+            description: bookData.description,
+            published_date: bookData.publishedDate,
+            publisher: bookData.publisher,
+        });
+
+        // Save the book to the database
+        const savedBook = await newBook.save();
+        res.json({ msg: 'Book added successfully', book: savedBook });
+    } catch (error) {
+        console.error('Error adding book:', error);
+        res.status(400).json({ error: error.message || 'Unable to add this book' });
+    }
+});
 
 
 /*
