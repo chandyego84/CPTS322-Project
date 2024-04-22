@@ -1,10 +1,12 @@
 const axios = require('axios');
 const express = require('express');
 const router = express.Router();
-
+require('dotenv').config();
 
 // load book model
 const Book = require('../../models/Book');
+
+const googleBooksAPIKey = process.env.VITE_GOOGLE_BOOKS_API_KEY;
 
 /* 
 * @route GET api/books/test
@@ -43,10 +45,9 @@ router.get('/:id', (req, res) => {
 router.post('/', async (req, res) => {
     try {
         let bookData;
-
         if (req.body.isbn) {
             // If ISBN is provided, search by ISBN
-            const googleBooksAPIUrl = `https://www.googleapis.com/books/v1/volumes?q=isbn:${req.body.isbn}&key=AIzaSyAABMNzcrcDrbDY1hQ5osOF7w1GmM4j22o`;
+            const googleBooksAPIUrl = `https://www.googleapis.com/books/v1/volumes?q=isbn:${req.body.isbn}&key=${googleBooksAPIKey}`;
             const response = await axios.get(googleBooksAPIUrl);
 
             // Check if the response is valid and contains items
@@ -59,7 +60,7 @@ router.post('/', async (req, res) => {
             // If ISBN is not provided, search by title and author
             const googleBooksAPIUrl = `https://www.googleapis.com/books/v1/volumes?q=intitle:${encodeURIComponent(
                 req.body.title
-            )}+inauthor:${encodeURIComponent(req.body.author)}&key=AIzaSyAABMNzcrcDrbDY1hQ5osOF7w1GmM4j22o`;
+            )}+inauthor:${encodeURIComponent(req.body.author)}&key=${googleBooksAPIKey}`;
             const response = await axios.get(googleBooksAPIUrl);
 
             // Check if the response is valid and contains items
