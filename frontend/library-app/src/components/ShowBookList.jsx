@@ -3,6 +3,8 @@ import '../App.css';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 import BookCard from './BookCard';
+import SignUp from './SignUp';
+import LogIn from './LogIn';
 
 function ShowBookList() {
   const [books, setBooks] = useState([]);
@@ -38,6 +40,12 @@ function ShowBookList() {
               className='btn btn-outline-warning float-right'
             >
               + Add New Book
+            </Link>
+            <Link to='/signup' className='btn btn-outline-primary float-right'>
+              Sign Up
+            </Link>
+            <Link to='/login' className='btn btn-outline-success float-right'>
+              Login
             </Link>
             <br />
             <br />

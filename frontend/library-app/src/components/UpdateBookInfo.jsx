@@ -67,7 +67,7 @@ function UpdateBookInfo(props) {
           <div className='col-md-8 m-auto'>
             <br />
             <Link to='/' className='btn btn-outline-warning float-left'>
-              Show BooK List
+              Show Book List
             </Link>
           </div>
           <div className='col-md-8 m-auto'>

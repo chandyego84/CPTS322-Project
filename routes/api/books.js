@@ -103,6 +103,27 @@ router.put('/:id', (req, res) => {
 })
 
 /*
+* @route  PUT api/books/:id/checkout
+* @desc User checks out a book by book id and user id
+* @access public
+*/
+
+router.put('/:id/checkout', async (req, res) => {
+    try {
+        const bookId = req.params.id;
+        const username = req.body.username;
+
+        // Update the book's checkedOutBy field with the user's ID
+        const updatedBook = await Book.findByIdAndUpdate(bookId, { checkedOutBy: username }, { new: true });
+
+        res.json({ msg: 'Book checked out successfully', book: updatedBook });
+    } catch (error) {
+        console.error('Error checking out book:', error);
+        res.status(500).json({ error: 'Unable to check out this book' });
+    }
+});
+
+/*
 * @route  DELETE api/books/:id
 * @desc Delete a book by id
 * @access public
