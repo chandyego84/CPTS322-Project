@@ -4,9 +4,8 @@
 ### Project Title: A Librarian Assistant
 ### Project Description
 A librarian assistant that helps a librarian manage common
-library-management tasks, including user registration, book search, placing hold on a
-book, checking out a book, and returning a book, etc. You may need to use a database
-of book information to support this application. Users can also browse the books in the
+library-management tasks, including user registration, book search, checking out a book, and returning a book, etc. We store the library's books using MongoDB
+and grab info about books using the Google Books API. Users can also browse the books in the
 library and look into the details about each book selected.
 
 ### Note to developers/the group
@@ -17,7 +16,7 @@ library and look into the details about each book selected.
     - fix any merge conflicts
 4. `git push`
 5. Create a Pull Request
-    - Will not be merged until reviewed by Chandler!
+    - Will not be merged until reviewed by one other person.
 
 ### Team Members
 | Member Name | WSU ID | Email | Contact Person |
