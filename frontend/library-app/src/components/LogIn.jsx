@@ -1,9 +1,9 @@
-// Login.jsx
 import React, { useState } from 'react';
-import axios from 'axios';
 import { Link } from 'react-router-dom';
+import useAuth from '../hooks/useAuth';
 
-function Login() {
+function Login({ onLogin }) {
+  const { logIn } = useAuth();
   const [formData, setFormData] = useState({
     username: '',
     password: '',
@@ -13,18 +13,21 @@ function Login() {
 
   const { username, password, successMessage, errorMessage } = formData;
 
-  const onChange = (e) => setFormData({ ...formData, [e.target.name]: e.target.value });
+  const onChange = (e) =>
+    setFormData({ ...formData, [e.target.name]: e.target.value });
 
   const onSubmit = async (e) => {
     e.preventDefault();
-    try {
-      const res = await axios.post('http://localhost:8082/api/profiles/login', {
-        username,
-        password,
+    const { success, error } = await logIn(username, password);
+    if (success) {
+      setFormData({
+        ...formData,
+        successMessage: 'You logged in successfully!',
+        errorMessage: '',
       });
-      setFormData({ ...formData, successMessage: 'You logged in successfully!', errorMessage: '' });
-    } catch (err) {
-      setFormData({ ...formData, successMessage: '', errorMessage: 'Login failed' });
+      onLogin(username); // Call the onLogin prop function with the logged-in username
+    } else {
+      setFormData({ ...formData, successMessage: '', errorMessage: error });
     }
   };
 

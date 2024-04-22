@@ -1,9 +1,9 @@
-// SignUp.jsx
 import React, { useState } from 'react';
-import axios from 'axios';
 import { Link } from 'react-router-dom';
+import useAuth from '../hooks/useAuth';
 
 function SignUp() {
+  const { signUp } = useAuth();
   const [formData, setFormData] = useState({
     username: '',
     password: '',
@@ -13,18 +13,20 @@ function SignUp() {
 
   const { username, password, successMessage, errorMessage } = formData;
 
-  const onChange = (e) => setFormData({ ...formData, [e.target.name]: e.target.value });
+  const onChange = (e) =>
+    setFormData({ ...formData, [e.target.name]: e.target.value });
 
   const onSubmit = async (e) => {
     e.preventDefault();
-    try {
-      const res = await axios.post('http://localhost:8082/api/profiles/signup', {
-        username,
-        password,
+    const { success, error } = await signUp(username, password);
+    if (success) {
+      setFormData({
+        ...formData,
+        successMessage: 'You signed up successfully!',
+        errorMessage: '',
       });
-      setFormData({ ...formData, successMessage: 'You signed up successfully!', errorMessage: '' });
-    } catch (err) {
-      setFormData({ ...formData, successMessage: '', errorMessage: 'Sign up failed' });
+    } else {
+      setFormData({ ...formData, successMessage: '', errorMessage: error });
     }
   };
 

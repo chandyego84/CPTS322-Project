@@ -3,9 +3,8 @@ import { Link, useParams, useNavigate } from 'react-router-dom';
 import '../App.css';
 import axios from 'axios';
 
-function ShowBookDetails(props) {
+function ShowBookDetails({ loggedInUsername, onLogout }) {
   const [book, setBook] = useState({});
-
   const { id } = useParams();
   const navigate = useNavigate();
 
@@ -29,6 +28,20 @@ function ShowBookDetails(props) {
       .catch((err) => {
         console.log('Error form ShowBookDetails_deleteClick');
       });
+  };
+
+  const onCheckOutClick = async (id) => {
+    try {
+      console.log(loggedInUsername);
+      const res = await axios.put(`http://localhost:8082/api/books/${id}/checkout`, {
+        username: loggedInUsername // Pass the ID of the logged-in user
+      });
+      // Handle success
+      console.log(res.data);
+    } catch (err) {
+      // Handle error
+      console.error(err);
+    }
   };
 
   const BookItem = (
@@ -75,7 +88,8 @@ function ShowBookDetails(props) {
       <div className='container'>
         <div className='row'>
           <div className='col-md-10 m-auto'>
-            <br /> <br />
+            <br />
+            <br />
             <Link to='/' className='btn btn-outline-warning float-left'>
               Show Book List
             </Link>
@@ -84,10 +98,11 @@ function ShowBookDetails(props) {
           <div className='col-md-8 m-auto'>
             <h1 className='display-4 text-center'>Book's Record</h1>
             <p className='lead text-center'>View Book's Info</p>
-            <hr /> <br />
+            <hr />
+            <br />
           </div>
           <div className='col-md-10 m-auto'>{BookItem}</div>
-          <div className='col-md-6 m-auto'>
+          <div className='col-md-4 m-auto'>
             <button
               type='button'
               className='btn btn-outline-danger btn-lg btn-block'
@@ -98,13 +113,33 @@ function ShowBookDetails(props) {
               Delete Book
             </button>
           </div>
-          <div className='col-md-6 m-auto'>
+          <div className='col-md-4 m-auto'>
+            <button
+              type='button'
+              className='btn btn-outline-info btn-lg btn-block'
+              onClick={() => {
+                onCheckOutClick(book._id);
+              }}
+            >
+              Check Out
+            </button>
+          </div>
+          <div className='col-md-4 m-auto'>
             <Link
               to={`/edit-book/${book._id}`}
               className='btn btn-outline-info btn-lg btn-block'
             >
               Edit Book
             </Link>
+          </div>
+          <div className='col-md-4 m-auto'>
+            <button
+              type='button'
+              className='btn btn-outline-danger btn-lg btn-block'
+              onClick={onLogout}
+            >
+              Logout
+            </button>
           </div>
         </div>
       </div>
