@@ -5,6 +5,9 @@ import axios from 'axios';
 
 function ShowBookDetails({ loggedInUsername, onLogout }) {
   const [book, setBook] = useState({});
+  const [isBookAvailableForCheckout, setIsBookAvailableForCheckout] = useState(false);
+  const [isUserAbleToReturn, setIsUserAbleToReturn] = useState(false);
+  const [message, setMessage] = useState('');
   const { id } = useParams();
   const navigate = useNavigate();
 
@@ -18,6 +21,14 @@ function ShowBookDetails({ loggedInUsername, onLogout }) {
         console.log('Error from ShowBookDetails');
       });
   }, [id]);
+
+  useEffect(() => {
+    console.log('book prop or currently logged in user has updated');
+    const isBookAvailable = !book.checkedOutBy || book.checkedOutBy === '';
+    const isUserAbleToReturn = book.checkedOutBy === loggedInUsername;
+    setIsBookAvailableForCheckout(isBookAvailable);
+    setIsUserAbleToReturn(isUserAbleToReturn);
+  }, [book, loggedInUsername]);
 
   const onDeleteClick = (id) => {
     axios
@@ -36,14 +47,30 @@ function ShowBookDetails({ loggedInUsername, onLogout }) {
         username: loggedInUsername // Pass the ID of the logged-in user
       });
       // Handle success
+      setMessage('Book checked out sucessfully');
       console.log(res.data);
     } catch (err) {
       // Handle error
+      setMessage('Error checking out the book');
       console.error(err);
     }
   };
 
-  const isBookAvailableForCheckout = !book.checkedOutBy || book.checkedOutBy === '';
+  const onReturnClick = async (id) => {
+    try {
+      const res = await axios.put(`http://localhost:8082/api/books/${id}/return`, {
+        username: loggedInUsername // pass username of currently logged in user
+      });
+      // Handle success
+      setMessage('Book returned successfully!');
+      console.log(res.data);
+    }
+    catch (err) {
+      // Handle error
+      setMessage('Error returning the book');
+      console.error(err);
+    }
+  }
 
   const BookItem = (
     <div>
@@ -102,6 +129,9 @@ function ShowBookDetails({ loggedInUsername, onLogout }) {
             <hr />
             <br />
           </div>
+          
+          {message && <p style={{ color: 'yellow' }}>{message}</p>}
+
           <div className='col-md-10 m-auto'>{BookItem}</div>
           <div className='col-md-4 m-auto'>
             <button
@@ -115,20 +145,23 @@ function ShowBookDetails({ loggedInUsername, onLogout }) {
             </button>
           </div>
           <div className='col-md-4 m-auto'>
-            <button
-              type='button'
-              className={`btn btn-lg btn-block ${
-                isBookAvailableForCheckout ? 'btn-outline-info' : 'btn-outline-secondary'
-              }`}
-              onClick={() => {
-                if (isBookAvailableForCheckout) {
-                  onCheckOutClick(book._id);
-                }
-              }}
-              disabled={!isBookAvailableForCheckout}
-            >
-              {isBookAvailableForCheckout ? 'Check Out' : 'Unavailable for Check Out'}
-            </button>
+              <button
+                  type='button'
+                  className='btn btn-lg btn-block btn-outline-success'
+                  onClick={() => {
+                      if (!isBookAvailableForCheckout && isUserAbleToReturn) {
+                        // book is checked out and user can return it  
+                        onReturnClick(book._id);
+                      }
+                      else if (isBookAvailableForCheckout) {
+                        // book can be checked out by the user
+                        onCheckOutClick(book._id);
+                      }
+                  }}
+                  disabled={!isBookAvailableForCheckout && !isUserAbleToReturn}
+              >
+                {isBookAvailableForCheckout ? 'Check Out Book' : 'Return Book'}
+              </button>
           </div>
           <div className='col-md-4 m-auto'>
             <Link

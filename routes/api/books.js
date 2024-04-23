@@ -126,6 +126,7 @@ router.put('/:id/checkout', async (req, res) => {
         const bookId = req.params.id;
         const username = req.body.username;
 
+        console.log(`${username} is trying to check out book`);
         // Update the book's checkedOutBy field with the user's ID
         const updatedBook = await Book.findByIdAndUpdate(bookId, { checkedOutBy: username }, { new: true });
 
@@ -133,6 +134,37 @@ router.put('/:id/checkout', async (req, res) => {
     } catch (error) {
         console.error('Error checking out book:', error);
         res.status(500).json({ error: 'Unable to check out this book' });
+    }
+});
+
+/*
+* @route PUT api/books/:id/return
+* @desc User returns a book by the book id and the user id
+* @access public
+*/
+router.put('/:id/return', async(req, res) => {
+    try {
+        const bookId = req.params.id;
+        const username = req.body.username;
+
+        // find the book by id
+        const book = await Book.findById(bookId);
+
+        // check if book is checked out by same user
+        if (book.checkedOutBy === username) {
+            book.checkedOutBy = null;
+
+            const updatedBook = await book.save();
+
+            res.json({ msg: 'Book returned sucessfully', book: updatedBook });
+        }
+        else {
+            res.status(403).json({ error: 'You are not authorized to return the book' });
+        }
+    }
+    catch (error) {
+        console.error('Error returning the book: ', error);
+        res.status(500).json({ error: 'Unable to return the book.' });
     }
 });
 
