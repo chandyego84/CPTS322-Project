@@ -1,0 +1,98 @@
+body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+}
+
+.login-container {
+    width: 400px;
+    margin: 100px auto;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.login-container h2 {
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.input-group {
+    margin-bottom: 15px;
+}
+
+.input-group label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+.input-group input {
+    width: calc(100% - 22px); /* Adjusted width */
+    padding: 10px;
+    border-radius: 3px;
+    border: 1px solid #ccc;
+}
+
+button {
+    width: 100%;
+    padding: 10px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-image: url('wsu.jpg'); /* Replace 'your_image.jpg' with the path to your image */
+    background-size: cover; /* Cover the entire background */
+    background-repeat: no-repeat; /* Prevent background image from repeating */
+}
+.banner {
+    background-color: #393734;
+    color: #fff;
+    padding: 0px 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.banner img {
+    height: 70px; /* Adjust height of logo as needed */
+    cursor: pointer; /* Add cursor pointer for clickable behavior */
+}
+.banner h1 {
+    margin: 0;
+}
+.search-bar {
+    width: 50%;
+    margin: 0 auto; /* Center the search bar */
+    display: flex;
+    align-items: center;
+}
+.search-bar input[type="text"] {
+    width: 80%; /* Adjust width of search bar as needed */
+    padding: 5px;
+    border-radius: 5px 0 0 5px;
+    border: 1px solid #ccc;
+    font-size: 16px;
+    box-sizing: border-box;
+}
+.search-bar input[type="submit"] {
+    background-color: #783535;
+    color: #fff;
+    border: none;
+    padding: 10px 15px; /* Adjusted padding to make the button smaller */
+    border-radius: 0 5px 5px 0;
+    cursor: pointer;
+    font-size: 14px; /* Adjusted font size to make the button smaller */
+}
+

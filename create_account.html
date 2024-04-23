@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Account</title>
+    <link rel="stylesheet" href="loginStyle.css">
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const password = document.getElementById("password");
+            const verifyPassword = document.getElementById("verifyPassword");
+            const submitBtn = document.querySelector("button[type='submit']");
+
+            verifyPassword.addEventListener("input", function() {
+                if (password.value !== verifyPassword.value) {
+                    verifyPassword.setCustomValidity("Passwords do not match");
+                } else {
+                    verifyPassword.setCustomValidity("");
+                }
+            });
+
+            password.addEventListener("input", function() {
+                verifyPassword.setCustomValidity("");
+            });
+
+            submitBtn.addEventListener("click", function(event) {
+                if (password.value !== verifyPassword.value) {
+                    event.preventDefault();
+                    alert("Passwords do not match");
+                }
+            });
+        });
+    </script>
+</head>
+<body>
+    <div class="login-container">
+        <h2>Create Account</h2>
+        <form action="login.php" method="POST">
+            <div class="input-group">
+                <label for="email">Email Address</label>
+                <input type="text" id="email" name="email" required>
+            </div>
+            <div class="input-group">
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" required>
+            </div>
+            <div class="input-group">
+                <label for="verifyPassword">Re-Enter Password</label>
+                <input type="password" id="verifyPassword" name="verifyPassword" required>
+            </div>
+            <button type="submit">Create Account</button>
+        </form>
+    </div>
+</body>
+</html>
