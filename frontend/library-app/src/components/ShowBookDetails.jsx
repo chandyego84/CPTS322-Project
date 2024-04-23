@@ -32,7 +32,6 @@ function ShowBookDetails({ loggedInUsername, onLogout }) {
 
   const onCheckOutClick = async (id) => {
     try {
-      console.log(loggedInUsername);
       const res = await axios.put(`http://localhost:8082/api/books/${id}/checkout`, {
         username: loggedInUsername // Pass the ID of the logged-in user
       });
@@ -43,6 +42,8 @@ function ShowBookDetails({ loggedInUsername, onLogout }) {
       console.error(err);
     }
   };
+
+  const isBookAvailableForCheckout = !book.checkedOutBy || book.checkedOutBy === '';
 
   const BookItem = (
     <div>
@@ -116,12 +117,17 @@ function ShowBookDetails({ loggedInUsername, onLogout }) {
           <div className='col-md-4 m-auto'>
             <button
               type='button'
-              className='btn btn-outline-info btn-lg btn-block'
+              className={`btn btn-lg btn-block ${
+                isBookAvailableForCheckout ? 'btn-outline-info' : 'btn-outline-secondary'
+              }`}
               onClick={() => {
-                onCheckOutClick(book._id);
+                if (isBookAvailableForCheckout) {
+                  onCheckOutClick(book._id);
+                }
               }}
+              disabled={!isBookAvailableForCheckout}
             >
-              Check Out
+              {isBookAvailableForCheckout ? 'Check Out' : 'Unavailable for Check Out'}
             </button>
           </div>
           <div className='col-md-4 m-auto'>
