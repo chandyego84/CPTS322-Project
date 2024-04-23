@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>User Profile</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f4f4f4;
+      background-image: url(wsu.jpg);
+      background-size: cover;
+      background-repeat: no-repeat;
+    }
+    .banner {
+      background-color: #393734;
+      color: #fff;
+      padding: 0px 0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .banner img {
+      height: 70px;
+      cursor: pointer;
+    }
+    .banner h1 {
+      margin: 0;
+    }
+    .search-bar {
+      width: 50%;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+    }
+    .search-bar input[type="text"] {
+      width: 80%;
+      padding: 5px;
+      border-radius: 5px 0 0 5px;
+      border: 1px solid #ccc;
+      font-size: 16px;
+      box-sizing: border-box;
+    }
+    .search-bar input[type="submit"] {
+      background-color: #783535;
+      color: #fff;
+      border: none;
+      padding: 10px 15px;
+      border-radius: 0 5px 5px 0;
+      cursor: pointer;
+      font-size: 14px;
+    }
+    .container {
+      max-width: 800px;
+      margin: 50px auto;
+      background-color: rgba(255, 255, 255, 0.8);
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+    h1 {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    .profile-info {
+      margin-bottom: 30px;
+    }
+    .profile-info p {
+      margin: 5px 0;
+    }
+    .book-list {
+      margin-top: 20px;
+    }
+    .book-list h2 {
+      margin-bottom: 10px;
+    }
+    .book-item {
+      border-bottom: 1px solid #ccc;
+      padding: 10px 0;
+    }
+    .delete-btn, .return-btn {
+      background-color: #ff4d4d;
+      color: #fff;
+      border: none;
+      padding: 8px 20px;
+      border-radius: 5px;
+      cursor: pointer;
+      margin-top: 20px;
+      transition: background-color 0.3s;
+    }
+    .delete-btn:hover, .return-btn:hover {
+      background-color: #e60000;
+    }
+    .return-btn {
+      background-color: #4CAF50;
+    }
+    .return-btn:hover {
+      background-color: #45a049;
+    }
+    .container {
+      box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.1);
+    }
+    h1 {
+      color: #333;
+    }
+    .profile-info p {
+      color: #666;
+    }
+    .book-list .book-item {
+      color: #444;
+    }
+    .delete-btn, .return-btn {
+      font-weight: bold;
+      transition: background-color 0.3s, transform 0.2s;
+    }
+    .delete-btn:hover, .return-btn:hover {
+      transform: scale(1.05);
+    }
+  </style>
+</head>
+<body>
+  <div class="banner">
+    <a href="https://www.linkedin.com">
+      <img src="cougs.png" alt="Library Logo" style="width: 100px; height: auto; margin-right: 10px;">
+    </a>
+    <div class="search-bar">
+      <form id="bookSearchForm">
+      </form>
+      <input type="text" id="bookSearch" name="bookSearch" placeholder="Search for books...">
+    </div>
+  </div>
+  <div class="container">
+    <h1>Profile Page</h1>
+    <div class="profile-info">
+      <p><strong>Username:</strong> JackQuillin</p>
+      <p><strong>Email:</strong> Jack.quillin@wsu.edu</p>
+      <p><strong>Membership:</strong> Standard</p>
+    </div>
+    <div class="book-list">
+      <h2>Currently Checked Out Books</h2>
+      <div class="book-item">Book Title 1</div>
+      <div class="book-item">Book Title 2</div>
+      <div class="book-item">Book Title 3</div>
+    </div>
+    <div class="book-list">
+      <h2>Wish List</h2>
+      <div class="book-item">Book Title A</div>
+      <div class="book-item">Book Title B</div>
+      <div class="book-item">Book Title C</div>
+    </div>
+    <div class="book-list">
+      <h2>Fines</h2>
+      <div class="book-item">Book Title 1</div>
+    </div>
+    <button class="delete-btn" id="deleteProfile">Delete Profile</button>
+    <button class="return-btn" onclick="window.location.href = 'home.html';">Return to Home Page</button>
+  </div>
+
+  <script>
+    document.getElementById('deleteProfile').addEventListener('click', function() {
+      var confirmation = confirm("Are you sure you want to delete your profile?");
+      if (confirmation) {
+        window.location.href = 'home.html';
+      }
+    });
+  </script>
+</body>
+</html>
