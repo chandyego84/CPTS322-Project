@@ -37,7 +37,6 @@ function ShowBookList({ loggedInUsername }) {
 
   return (
     <div className='ShowBookList'>
-      <div className='container'>
         <div className='row'>
           <div className='col-md-12'>
             <br />
@@ -80,7 +79,6 @@ function ShowBookList({ loggedInUsername }) {
 
         <div className='list'>{bookList}</div>
       </div>
-    </div>
   );
 }
 
