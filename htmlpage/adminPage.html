@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Library Admin Page</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-image: url('wsu.jpg'); /* Replace 'your_image.jpg' with the path to your image */
+            background-size: cover; /* Cover the entire background */
+            background-repeat: no-repeat; /* Prevent background image from repeating */
+        }
+        .banner {
+            background-color: #393734;
+            color: #fff;
+            padding: 0px 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .banner img {
+            height: 70px; /* Adjust height of logo as needed */
+            cursor: pointer; /* Add cursor pointer for clickable behavior */
+        }
+        .banner h1 {
+            margin: 0;
+        }
+        .search-bar {
+            width: 50%;
+            margin: 0 auto; /* Center the search bar */
+            display: flex;
+            align-items: center;
+        }
+        .search-bar input[type="text"] {
+            width: 80%; /* Adjust width of search bar as needed */
+            padding: 5px;
+            border-radius: 5px 0 0 5px;
+            border: 1px solid #ccc;
+            font-size: 16px;
+            box-sizing: border-box;
+        }
+        .search-bar input[type="submit"] {
+            background-color: #783535;
+            color: #fff;
+            border: none;
+            padding: 10px 15px; /* Adjusted padding to make the button smaller */
+            border-radius: 0 5px 5px 0;
+            cursor: pointer;
+            font-size: 14px; /* Adjusted font size to make the button smaller */
+        }
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: rgba(255, 255, 255, 0.8); /* Set background color with opacity */
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h2 {
+            margin-top: 20px;
+        }
+        form {
+            margin-bottom: 20px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        input[type="text"], input[type="submit"] {
+            width: calc(100% - 22px); /* Adjusted width to account for padding */
+            padding: 10px;
+            margin-bottom: 10px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            box-sizing: border-box; /* Added to include padding in width calculation */
+        }
+        input[type="submit"] {
+            background-color: #783535;
+            color: #fff;
+            cursor: pointer;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            padding: 10px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+        th {
+            background-color: #783535;
+            color: #fff;
+        }
+    </style>
+</head>
+<body>
+    <div class="banner">
+        <a href="https://www.linkedin.com/">
+            <img src="cougs.png" alt="Library Logo" style="width: 100px; height: auto; margin-right: 10px;">
+        </a>
+        <div class="search-bar">
+            <form id="bookSearchForm">
+            </form>
+            <input type="text" id="bookSearch" name="bookSearch" placeholder="Search for books...">
+        </div>
+    </div>
+    <div class="container">
+        <!-- Add New Book Form -->
+        <form id="addBookForm">
+            <h2>Add New Book</h2>
+            <label for="title">Title:</label>
+            <input type="text" id="title" name="title" required>
+            <label for="author">Author:</label>
+            <input type="text" id="author" name="author" required>
+            <label for="publishingCompany">Publishing Company:</label>
+            <input type="text" id="publishingCompany" name="publishingCompany" required>
+            <label for="genre">Genre:</label>
+            <input type="text" id="genre" name="genre" required>
+            <input type="submit" value="Add Book">
+        </form>
+        
+        <!-- Search User Profile Form -->
+        <form id="searchUserForm">
+            <h2>Search User Profile</h2>
+            <label for="username">Username:</label>
+            <input type="text" id="username" name="username" required>
+            <input type="submit" value="Search">
+        </form>
+        
+        <!-- User Profile Table -->
+        <h2>User Profile</h2>
+        <div id="userProfileContainer"> <!-- New container for the user profile table -->
+            <table id="userProfileTable">
+                <tr>
+                    <th>Username</th>
+                    <th>Books Checked Out</th>
+                    <th>Fines</th>
+                    <th>Action</th>
+                </tr>
+                <!-- User profile rows will be dynamically added here -->
+            </table>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Function to handle form submission for searching user profile
+            document.getElementById('searchUserForm').addEventListener('submit', function(event) {
+                event.preventDefault(); // Prevent the default form submission
+
+                // Get the username entered by the user
+                var username = document.getElementById('username').value;
+
+                // Here you would typically make an AJAX request to fetch user profile data from the server
+                // For this example, I'll simulate the response data
+                var userData = {
+                    username: username,
+                    booksCheckedOut: ['Book 1', 'Book 2'], // Example data for books checked out
+                    fines: '$10.00' // Example data for fines
+                };
+
+                // Display the user profile data
+                var userProfileTable = document.getElementById('userProfileTable');
+                // Clear existing table rows
+                userProfileTable.querySelectorAll('tr:not(:first-child)').forEach(function(row) {
+                    row.remove();
+                });
+                // Create a new row for the user profile
+                var newRow = document.createElement('tr');
+                newRow.innerHTML = `
+                    <td>${userData.username}</td>
+                    <td>${userData.booksCheckedOut.join(', ')}</td>
+                    <td>${userData.fines}</td>
+                    <td><button onclick="adjustFine()">Adjust Fine</button><button onclick="deleteUserProfile()">Delete Profile</button></td>
+                `;
+                userProfileTable.appendChild(newRow);
+            });
+
+            // Function to handle deleting user profile
+            window.deleteUserProfile = function() {
+                // Here you would typically make an AJAX request to delete the user profile from the server
+                // For this example, I'll simply clear the table content
+                document.getElementById('userProfileTable').querySelectorAll('tr:not(:first-child)').forEach(function(row) {
+                    row.remove();
+                });
+                alert('User profile deleted successfully.');
+            };
+
+            // Function to handle form submission for adding a new book
+            document.getElementById('addBookForm').addEventListener('submit', function(event) {
+                event.preventDefault(); // Prevent the default form submission
+
+                // Get input values
+                var title = document.getElementById('title').value;
+                var author = document.getElementById('author').value;
+                var publishingCompany = document.getElementById('publishingCompany').value;
+                var genre = document.getElementById('genre').value;
+
+                // Here you would typically make an AJAX request to add the book to the server
+                // For this example, I'll simply display a notification
+                if (title && author && publishingCompany && genre) {
+                    alert('Book added successfully.');
+
+                    // Clear the input fields
+                    document.getElementById('title').value = '';
+                    document.getElementById('author').value = '';
+                    document.getElementById('publishingCompany').value = '';
+                    document.getElementById('genre').value = '';
+                } else {
+                    alert('Please fill out all fields.');
+                }
+            });
+
+            // Function to handle adjusting fines
+            window.adjustFine = function() {
+                // Prompt the user to enter the new fine amount
+                var newFine = prompt('Enter the new fine amount:');
+                if (newFine !== null && !isNaN(parseFloat(newFine))) {
+                    // Update the displayed fine with the new value
+                    var userProfileTable = document.getElementById('userProfileTable');
+                    var finesCell = userProfileTable.querySelector('td:nth-child(3)');
+                    finesCell.textContent = '$' + parseFloat(newFine).toFixed(2); // Update fine value
+                    alert('Fine adjusted successfully.');
+                } else {
+                    alert('Invalid fine amount. Please enter a valid number.');
+                }
+            };
+        });
+    </script>
+</body>
+</html>
