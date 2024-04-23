@@ -126,6 +126,7 @@ router.put('/:id/checkout', async (req, res) => {
         const bookId = req.params.id;
         const username = req.body.username;
 
+        console.log(`${username} is trying to check out book`);
         // Update the book's checkedOutBy field with the user's ID
         const updatedBook = await Book.findByIdAndUpdate(bookId, { checkedOutBy: username }, { new: true });
 
