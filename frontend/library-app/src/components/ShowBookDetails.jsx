@@ -43,7 +43,22 @@ function ShowBookDetails({ loggedInUsername, onLogout }) {
     }
   };
 
+  const onReturnClick = async (id) => {
+    try {
+      const res = await axios.put(`http://localhost:8082/api/books/${id}/return`, {
+        username: loggedInUsername // pass username of currently logged in user
+      });
+      // Handle success
+      console.log(res.data);
+    }
+    catch (err) {
+      // Handle error
+      console.error(err);
+    }
+  }
+
   const isBookAvailableForCheckout = !book.checkedOutBy || book.checkedOutBy === '';
+  const isUserAbleToReturn = book.checkedOutBy === loggedInUsername;
 
   const BookItem = (
     <div>
@@ -115,20 +130,23 @@ function ShowBookDetails({ loggedInUsername, onLogout }) {
             </button>
           </div>
           <div className='col-md-4 m-auto'>
-            <button
-              type='button'
-              className={`btn btn-lg btn-block ${
-                isBookAvailableForCheckout ? 'btn-outline-info' : 'btn-outline-secondary'
-              }`}
-              onClick={() => {
-                if (isBookAvailableForCheckout) {
-                  onCheckOutClick(book._id);
-                }
-              }}
-              disabled={!isBookAvailableForCheckout}
-            >
-              {isBookAvailableForCheckout ? 'Check Out' : 'Unavailable for Check Out'}
-            </button>
+              <button
+                  type='button'
+                  className='btn btn-lg btn-block btn-outline-success'
+                  onClick={() => {
+                      if (!isBookAvailableForCheckout && isUserAbleToReturn) {
+                        // book is checked out and user can return it  
+                        onReturnClick(book._id);
+                      }
+                      else if (isBookAvailableForCheckout) {
+                        // book can be checked out by the user
+                        onCheckOutClick(book._id);
+                      }
+                  }}
+                  disabled={!isBookAvailableForCheckout && !isUserAbleToReturn}
+              >
+                {isBookAvailableForCheckout ? 'Check Out Book' : 'Return Book'}
+              </button>
           </div>
           <div className='col-md-4 m-auto'>
             <Link
