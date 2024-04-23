@@ -8,6 +8,7 @@ import LogIn from './LogIn';
 
 function ShowBookList({ loggedInUsername }) {
   const [books, setBooks] = useState([]);
+  const [searchQuery, setSearchQuery] = useState('');
   const welcomeMessage = loggedInUsername ? `Welcome ${loggedInUsername} to the library` : 'Welcome to the library';
 
   useEffect(() => {
@@ -21,10 +22,18 @@ function ShowBookList({ loggedInUsername }) {
       });
   }, []);
 
+  const handleSearchChange = (e) => {
+    setSearchQuery(e.target.value);
+  };
+
+  const filteredBooks = books.filter(book =>
+    book.title.toLowerCase().includes(searchQuery.toLowerCase())
+  );
+
   const bookList =
-    books.length === 0
-      ? 'There are no books in the library!'
-      : books.map((book, k) => <BookCard book={book} key={k} />);
+    filteredBooks.length === 0
+      ? 'No matching books found!'
+      : filteredBooks.map((book, k) => <BookCard book={book} key={k} />);
 
   return (
     <div className='ShowBookList'>
@@ -57,6 +66,16 @@ function ShowBookList({ loggedInUsername }) {
             <br />
             <hr />
           </div>
+        </div>
+
+        <div className='search-bar'>
+          <input
+            type="text"
+            placeholder="Search by book title"
+            value={searchQuery}
+            onChange={handleSearchChange}
+            className="search-input"
+          />
         </div>
 
         <div className='list'>{bookList}</div>
