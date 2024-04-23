@@ -38,6 +38,18 @@ router.get('/:id', (req, res) => {
 })
 
 /*
+* @route  GET api/books/user/:username
+* @desc Get books added by a specific user
+* @access public
+*/
+router.get('/user/:username', (req, res) => {
+    const username = req.params.username;
+    Book.find({ checkedOutBy: username })
+        .then(books => res.json(books))
+        .catch(err => res.status(404).json({ noBooksFound: "No books found for this user" }));
+});
+
+/*
 * @route  POST api/books
 * @desc Add/save a book 
 * @access public
@@ -79,6 +91,7 @@ router.post('/', async (req, res) => {
             description: bookData.description,
             published_date: bookData.publishedDate,
             publisher: bookData.publisher,
+            imageLink: bookData.imageLinks.smallThumbnail,
         });
 
         // Save the book to the database

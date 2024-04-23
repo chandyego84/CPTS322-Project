@@ -22,7 +22,7 @@ function ShowBookList() {
 
   const bookList =
     books.length === 0
-      ? 'there is no book record!'
+      ? 'There are no books in the library!'
       : books.map((book, k) => <BookCard book={book} key={k} />);
 
   return (
@@ -31,7 +31,7 @@ function ShowBookList() {
         <div className='row'>
           <div className='col-md-12'>
             <br />
-            <h2 className='display-4 text-center'>Books List</h2>
+            <h2 className='display-4 text-center'>Library</h2>
           </div>
 
           <div className='col-md-11'>
@@ -40,6 +40,9 @@ function ShowBookList() {
               className='btn btn-outline-warning float-right'
             >
               + Add New Book
+            </Link>
+            <Link to='/user-book-list' className='btn btn-outline-info float-right'> {/* Button to navigate to user's book list */}
+              My Checked Out Books
             </Link>
             <Link to='/signup' className='btn btn-outline-primary float-right'>
               Sign Up
