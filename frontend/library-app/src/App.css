@@ -1,3 +1,78 @@
+/* Sign up and Log in */
+.SignUp, .Login {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.sign-container {
+  width: 500px;
+  border: 1px solid rgba(0, 0, .125);
+  margin: 0 auto;
+  border-radius: 5px;
+  overflow: hidden;
+  display: flex; /* Use flexbox */
+  flex-direction: column; /* Stack children vertically */
+  align-items: center; /* Center children horizontally */
+}
+
+/* Add spacing between elements inside .sign-container */
+.sign-container > * {
+  margin-bottom: 15px; /* Adjust as needed */
+}
+
+/* Add specific styling for form elements */
+.sign-container form {
+  width: 100%;
+}
+
+.sign-container form div {
+  width: 100%;
+  margin-left: 10px;
+}
+
+.sign-container label {
+  display: block;
+  font-weight: bold;
+}
+
+.sign-container input {
+  width: calc(100% - 20px); /* Subtract padding from width */
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+}
+
+.sign-container button {
+  width: 50%;
+  margin-left: 25%;
+  margin-top: 20px;
+  padding: 10px;
+  font-size: 16px;
+  color: #fff;
+  background-color: #007bff;
+  border: none;
+  border-radius: 3px;
+  cursor: pointer;
+}
+
+.sign-container button:hover {
+  background-color: #0056b3;
+}
+
+.sign-container p {
+  text-align: center;
+}
+
+/* Add specific styling for the link */
+.sign-container a {
+  display: block;
+  text-align: center;
+}
+
+
 .CreateBook {
   background-color: #2c3e50;
   min-height: 100vh;
@@ -70,7 +145,7 @@
   padding: 10px 0 10px 0;
 }
 
-.CreateBook, .ShowBookDetails, .UpdateBookInfo, .ShowBookList {
+.CreateBook, .ShowBookDetails, .UpdateBookInfo, .ShowBookList, .SignUp, .Login {
   height: 100vh;
   width: 100vw;
   display: flex;

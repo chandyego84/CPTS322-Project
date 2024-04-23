@@ -32,22 +32,24 @@ function Login({ onLogin }) {
   };
 
   return (
-    <div>
-      <h2>Login</h2>
-      {successMessage && <p style={{ color: 'green' }}>{successMessage}</p>}
-      {errorMessage && <p style={{ color: 'red' }}>{errorMessage}</p>}
-      <form onSubmit={onSubmit}>
-        <div>
-          <label>Username</label>
-          <input type="text" name="username" value={username} onChange={onChange} />
-        </div>
-        <div>
-          <label>Password</label>
-          <input type="password" name="password" value={password} onChange={onChange} />
-        </div>
-        <button type="submit">Login</button>
-      </form>
-      <Link to="/">Show Book List</Link>
+    <div className="Login">
+      <div className="sign-container">
+        <h2>Login</h2>
+        {successMessage && <p style={{ color: 'green' }}>{successMessage}</p>}
+        {errorMessage && <p style={{ color: 'red' }}>{errorMessage}</p>}
+        <form onSubmit={onSubmit}>
+          <div>
+            <label>Username</label>
+            <input type="text" name="username" value={username} onChange={onChange} />
+          </div>
+          <div>
+            <label>Password</label>
+            <input type="password" name="password" value={password} onChange={onChange} />
+          </div>
+          <button type="submit">Login</button>
+        </form>
+        <Link to="/">Show Book List</Link>
+      </div>
     </div>
   );
 }
