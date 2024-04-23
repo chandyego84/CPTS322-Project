@@ -5,6 +5,32 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Create Account</title>
     <link rel="stylesheet" href="loginStyle.css">
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const password = document.getElementById("password");
+            const verifyPassword = document.getElementById("verifyPassword");
+            const submitBtn = document.querySelector("button[type='submit']");
+
+            verifyPassword.addEventListener("input", function() {
+                if (password.value !== verifyPassword.value) {
+                    verifyPassword.setCustomValidity("Passwords do not match");
+                } else {
+                    verifyPassword.setCustomValidity("");
+                }
+            });
+
+            password.addEventListener("input", function() {
+                verifyPassword.setCustomValidity("");
+            });
+
+            submitBtn.addEventListener("click", function(event) {
+                if (password.value !== verifyPassword.value) {
+                    event.preventDefault();
+                    alert("Passwords do not match");
+                }
+            });
+        });
+    </script>
 </head>
 <body>
     <div class="login-container">
