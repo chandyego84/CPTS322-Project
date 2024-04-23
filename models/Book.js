@@ -16,6 +16,9 @@ const BookSchema = new mongoose.Schema({
     description: {
         type: String
     },
+    imageLink: {
+        type: String
+    },
     published_date: {
         type: Date
     },

@@ -35,11 +35,19 @@
 }
 
 .card-container {
-  width: 250px;
-  border: 1px solid rgba(0,0,.125);
+  width: 200px;
+  border: 1px solid rgba(0, 0, .125);
   margin: 0 auto;
   border-radius: 5px;
   overflow: hidden;
+  display: flex; /* Use flexbox */
+  flex-direction: column; /* Stack children vertically */
+  align-items: center; /* Center children horizontally */
+}
+
+.book-thumbnail {
+  width: 100%; /* Make the image width 100% of its container */
+  height: auto; /* Maintain the aspect ratio */
 }
 
 .desc {

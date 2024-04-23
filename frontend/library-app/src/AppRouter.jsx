@@ -6,6 +6,7 @@ import ShowBookDetails from "./components/ShowBookDetails";
 import UpdateBookInfo from "./components/UpdateBookInfo";
 import SignUp from './components/SignUp';
 import Login from './components/LogIn';
+import UserBookList from './components/UserCheckedOutList.jsx';
 
 function AppRouter() {
   const [loggedInUsername, setLoggedInUsername] = useState(null);
@@ -27,7 +28,8 @@ function AppRouter() {
         <Route path="/create-book" element={<CreateBook loggedInUsername={loggedInUsername} />} />
         <Route path="/show-book/:id" element={<ShowBookDetails loggedInUsername={loggedInUsername} onLogout={handleLogout} />} />
         <Route path="/edit-book/:id" element={<UpdateBookInfo loggedInUsername={loggedInUsername} />} />
-      </Routes>
+        <Route path="/user-book-list" element={<UserBookList loggedInUsername={loggedInUsername} />} />
+        </Routes>
     </BrowserRouter>
   );
 }
