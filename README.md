@@ -8,6 +8,12 @@ library-management tasks, including user registration, book search, checking out
 and grab info about books using the Google Books API. Users can also browse the books in the
 library and look into the details about each book selected.
 
+### How to run the demo site
+1. Clone the repo
+2. run `npm install` in the root directory and in the frontend/libraryapp directory
+3. to run the backend: run `npm run app` in the root directory
+4. to run the frontend: run `npm run dev` in the frontend/libraryapp directory
+
 ### Note to developers/the group
 1. Always work on a separate branch from main: e.g., on branch 'lastName'
 2. Make small commits to changes you make
